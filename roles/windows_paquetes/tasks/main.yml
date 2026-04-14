@@ -1,20 +1,11 @@
 ---
-- name: Definir ruta de winget
-  set_fact:
-    winget_path: "C:\\Program Files\\WindowsApps\\Microsoft.DesktopAppInstaller_1.28.220.0_x64__8wekyb3d8bbwe\\winget.exe"
-
----
 - name: Instalar paquetes base del aula en Windows
   ansible.windows.win_shell: |
-    winget install --id {{ item }} -e --accept-package-agreements --accept-source-agreements --disable-interactivity
+    winget install --id {{ item }} -e --source winget --accept-source-agreements --accept-package-agreements --disable-interactivity
   loop: "{{ paquetes_base }}"
 
 - name: Instalar paquetes extra en Windows
   ansible.windows.win_shell: |
-    winget install --id {{ item }} -e --accept-package-agreements --accept-source-agreements --disable-interactivity
+    winget install --id {{ item }} -e --source winget --accept-source-agreements --accept-package-agreements --disable-interactivity
   loop: "{{ paquetes_extra }}"
   when: paquetes_extra is defined
-
-- name: Inicializar winget aceptando orígenes
-  ansible.windows.win_shell: |
-    winget source list --accept-source-agreements

@@ -17,16 +17,10 @@
       Host: {{ inventory_hostname }}
       IP: {{ ansible_host }}
 
-- name: Copiar script inicial si existe en el repo
-  ansible.windows.win_copy:
-    src: ../scripts/configuracion-inicial-win.ps1
-    dest: C:\Temp\Ansible\scripts\configuracion-inicial-win.ps1
-  ignore_errors: true
-
 - name: Crear acceso informativo en escritorio publico
   ansible.windows.win_copy:
     dest: C:\Users\Public\Desktop\INFO-AULA.txt
     content: |
       Equipo configurado por el proyecto intermodular.
       Grupo: {{ group_names | join(', ') }}
-      Control remoto: Ansible por SSH
+      Control remoto: Ansible por WinRM

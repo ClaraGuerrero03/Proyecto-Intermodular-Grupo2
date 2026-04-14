@@ -2,6 +2,9 @@
 - name: Reiniciar equipos
   hosts: all
   become: true
+  gather_facts: false
+  serial: 5
+
   tasks:
     - name: Reiniciar sistema
       reboot:

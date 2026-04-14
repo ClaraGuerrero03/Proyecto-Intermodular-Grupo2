@@ -2,11 +2,13 @@
 - name: Configurar Aula 2
   hosts: aula2
   become: true
+  gather_facts: true
+
   vars_files:
     - ../vars/usuarios_aula2.yml
     - ../vars/paquetes_comunes.yml
   roles:
-    - paquetes
-    - usuarios
-    - seguridad
-    - configuracion
+    - { role: paquetes, tags: ["paquetes"] }
+    - { role: usuarios, tags: ["usuarios"] }
+    - { role: seguridad, tags: ["seguridad"] }
+    - { role: configuracion, tags: ["configuracion"] }

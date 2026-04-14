@@ -2,11 +2,14 @@
 - name: Configurar Aula 1
   hosts: aula1
   become: true
+  gather_facts: true
+
   vars_files:
     - ../vars/usuarios_aula1.yml
     - ../vars/paquetes_comunes.yml
   roles:
-    - paquetes
-    - usuarios
-    - seguridad
-    - configuracion
+    - { role: paquetes, tags: ["paquetes"] }
+    - { role: usuarios, tags: ["usuarios"] }
+    - { role: seguridad, tags: ["seguridad"] }
+    - { role: configuracion, tags: ["configuracion"] }
+

@@ -2,7 +2,9 @@
 - name: Eliminar usuarios en Aula 2
   hosts: aula2
   become: true
+  gather_facts: true
+
   vars_files:
     - ../vars/usuarios_eliminar_aula2.yml
   roles:
-    - eliminar_usuarios
+    - { role: eliminar_usuarios, tags: ["eliminar_usuarios"] }

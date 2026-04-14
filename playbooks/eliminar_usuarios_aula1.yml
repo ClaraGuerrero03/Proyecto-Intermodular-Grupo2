@@ -5,4 +5,4 @@
   vars_files:
     - ../vars/usuarios_eliminar_aula1.yml
   roles:
-    - eliminarusers
+    - eliminar_usuarios

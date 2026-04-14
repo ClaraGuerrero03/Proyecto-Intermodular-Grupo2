@@ -1,0 +1,8 @@
+---
+- name: Eliminar usuarios en Aula 2
+  hosts: aula2
+  become: true
+  vars_files:
+    - ../vars/usuarios_eliminar_aula2.yml
+  roles:
+    - eliminarusers

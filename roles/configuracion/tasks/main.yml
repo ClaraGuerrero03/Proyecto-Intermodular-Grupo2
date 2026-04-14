@@ -1,0 +1,17 @@
+- name: Configurar zona horaria
+  timezone:
+    name: "{{ zona_horaria }}"
+
+- name: Configurar servidores DNS en resolved.conf
+  lineinfile:
+    path: /etc/systemd/resolved.conf
+    regexp: '^#?DNS='
+    line: "DNS=1.1.1.1 8.8.8.8"
+  notify: Reiniciar systemd-resolved
+
+- name: Asegurar uso de systemd-resolved
+  lineinfile:
+    path: /etc/systemd/resolved.conf
+    regexp: '^#?FallbackDNS='
+    line: "FallbackDNS=1.1.1.1 8.8.8.8"
+  notify: Reiniciar systemd-resolved

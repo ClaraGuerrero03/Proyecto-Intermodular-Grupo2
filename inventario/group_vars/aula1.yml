@@ -1,0 +1,13 @@
+zona_horaria: Europe/Madrid
+shell_por_defecto: /bin/bash
+directorio_home: /home
+grupo_alumnos: alumnos
+
+paquetes_base:
+  - git
+  - curl
+  - vim
+  - net-tools
+  - openssh-server
+  - htop
+

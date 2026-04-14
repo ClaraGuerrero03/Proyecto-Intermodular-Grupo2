@@ -1,0 +1,24 @@
+- name: Deshabilitar login root por SSH
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^PermitRootLogin'
+    line: 'PermitRootLogin no'
+  notify: Reiniciar SSH
+
+- name: Deshabilitar autenticación por contraseña en SSH
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^PasswordAuthentication'
+    line: 'PasswordAuthentication no'
+  notify: Reiniciar SSH
+
+- name: Permitir SSH en firewall
+  ufw:
+    rule: allow
+    port: '22'
+    proto: tcp
+
+- name: Activar firewall
+  ufw:
+    state: enabled
+    policy: deny

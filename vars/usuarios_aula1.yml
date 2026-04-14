@@ -1,0 +1,12 @@
+usuarios:
+  - nombre: alumno01
+    password: "{{ 'Cambiar1234!' | password_hash('sha512') }}"
+    grupos: [alumnos]
+
+  - nombre: alumno02
+    password: "{{ 'Cambiar1234!' | password_hash('sha512') }}"
+    grupos: [alumnos]
+
+  - nombre: profesor
+    password: "{{ 'Profesor1234!' | password_hash('sha512') }}"
+    grupos: [alumnos, sudo]

@@ -1,0 +1,8 @@
+---
+- name: Reiniciar equipos
+  hosts: all
+  become: true
+  tasks:
+    - name: Reiniciar sistema
+      reboot:
+        reboot_timeout: 300

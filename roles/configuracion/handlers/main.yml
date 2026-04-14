@@ -1,0 +1,4 @@
+- name: Reiniciar systemd-resolved
+  service:
+    name: systemd-resolved
+    state: restarted

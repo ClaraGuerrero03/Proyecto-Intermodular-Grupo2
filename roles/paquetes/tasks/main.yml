@@ -1,0 +1,19 @@
+- name: Actualizar caché apt
+  apt:
+    update_cache: true
+    cache_valid_time: 3600
+
+- name: Actualizar todos los paquetes instalados
+  apt:
+    upgrade: dist
+
+- name: Instalar paquetes base del aula
+  apt:
+    name: "{{ paquetes_base }}"
+    state: present
+
+- name: Instalar paquetes extra
+  apt:
+    name: "{{ paquetes_extra }}"
+    state: present
+  when: paquetes_extra is defined

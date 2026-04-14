@@ -1,0 +1,7 @@
+- name: Eliminar usuarios indicados
+  user:
+    name: "{{ item }}"
+    state: absent
+    remove: true
+  loop: "{{ usuarios_eliminar }}"
+  when: usuarios_eliminar is defined

@@ -1,0 +1,12 @@
+---
+- name: Configurar Aula 1
+  hosts: aula1
+  become: true
+  vars_files:
+    - ../vars/usuarios_aula1.yml
+    - ../vars/paquetes_comunes.yml
+  roles:
+    - paquetes
+    - usuarios
+    - seguridad
+    - configuracion

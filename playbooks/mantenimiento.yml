@@ -1,0 +1,6 @@
+---
+- name: Mantenimiento general
+  hosts: all
+  become: true
+  roles:
+    - mantenimiento

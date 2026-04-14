@@ -1,0 +1,29 @@
+- name: Ver espacio en disco
+  command: df -h /
+  register: disco
+  changed_when: false
+
+- name: Ver tiempo encendido
+  command: uptime -p
+  register: uptime_equipo
+  changed_when: false
+
+- name: Ver memoria usada
+  command: free -h
+  register: memoria
+  changed_when: false
+
+- name: Mostrar estado resumido
+  debug:
+    msg:
+      - "{{ inventory_hostname }} - Disco: {{disco.stdout_lines[1] }}"
+      - "{{ inventory_hostname }} - Uptime: {{ uptime_equipo.stdout }}"
+      - "{{ inventory_hostname }} - Memoria: {{ memoria.stdout_lines[1] }}"
+
+- name: Limpiar cache apt
+  apt:
+    autoclean: true
+
+- name: Eliminar paquetes huerfanos
+  apt:
+    autoremove: true

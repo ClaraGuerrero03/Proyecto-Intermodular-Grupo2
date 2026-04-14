@@ -1,0 +1,22 @@
+- name: Crear grupo de alumnos
+  group:
+    name: "{{ grupo_alumnos }}"
+    state: present
+
+- name: Crear usuarios
+  user:
+    name: "{{ item.nombre }}"
+    password: "{{ item.password }}"
+    groups: "{{ item.grupos }}"
+    shell: "{{ shell_por_defecto }}"
+    home: "{{ directorio_home }}/{{ item.nombre }}"
+    create_home: true
+    state: present
+  loop: "{{ usuarios }}"
+
+- name: Forzar cambio de contraseña en primer login
+  command: chage -d 0 {{ item.nombre }}
+  loop: "{{ usuarios }}"
+  changed_when: false
+
+

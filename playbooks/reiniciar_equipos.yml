@@ -1,6 +1,6 @@
 ---
 - name: Reiniciar equipos
-  hosts: all
+  hosts: aula1:aula2
   become: true
   gather_facts: false
   serial: 5

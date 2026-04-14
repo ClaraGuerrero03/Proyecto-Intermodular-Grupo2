@@ -1,0 +1,32 @@
+---
+- name: Crear carpeta de trabajo de Ansible
+  ansible.windows.win_file:
+    path: C:\Temp\Ansible
+    state: directory
+
+- name: Crear carpeta de scripts
+  ansible.windows.win_file:
+    path: C:\Temp\Ansible\scripts
+    state: directory
+
+- name: Crear archivo de control
+  ansible.windows.win_copy:
+    dest: C:\Temp\Ansible\ok.txt
+    content: |
+      Equipo gestionado por Ansible correctamente.
+      Host: {{ inventory_hostname }}
+      IP: {{ ansible_host }}
+
+- name: Copiar script inicial si existe en el repo
+  ansible.windows.win_copy:
+    src: ../scripts/configuracion-inicial-win.ps1
+    dest: C:\Temp\Ansible\scripts\configuracion-inicial-win.ps1
+  ignore_errors: true
+
+- name: Crear acceso informativo en escritorio publico
+  ansible.windows.win_copy:
+    dest: C:\Users\Public\Desktop\INFO-AULA.txt
+    content: |
+      Equipo configurado por el proyecto intermodular.
+      Grupo: {{ group_names | join(', ') }}
+      Control remoto: Ansible por SSH

@@ -7,8 +7,25 @@ pc02 ansible_host=192.168.113.200
 pc10 ansible_host=192.168.113.110
 pc20 ansible_host=192.168.113.120
 
+[win_aula3]
+pc30 ansible_host=192.168.113.130
+#pc40 ansible_host=192.168.113.140
 
-[all:vars]
+[linux:children]
+aula1
+aula2
+
+[linux:vars]
 ansible_user=ansible
 ansible_ssh_private_key_file=~/.ssh/id_ed25519
+ansible_connection=ssh
 ansible_become=true
+
+[win_aula3:vars]
+ansible_user=ansible
+ansible_password=usuario
+ansible_connection=winrm
+ansible_port=5985
+ansible_winrm_transport=basic
+ansible_winrm_server_cert_validation=ignore
+ansible_become=false

@@ -1,0 +1,8 @@
+---
+grupo_alumnos: AlumnosAula3
+
+usuarios:
+  - nombre: alumno30
+    password: "Alumno30!!2026"
+  - nombre: alumno40
+    password: "Alumno40!!2026"

@@ -1,0 +1,10 @@
+---
+- name: Eliminar usuarios en aula 3 windows
+  hosts: win_aula3
+  gather_facts: false
+
+  vars_files:
+    - ../vars/usuarios_eliminar_aula3_win.yml
+
+  roles:
+    - { role: windows_eliminar_usuarios, tags: ["eliminar_usuarios"] }

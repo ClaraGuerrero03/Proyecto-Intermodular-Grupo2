@@ -1,0 +1,7 @@
+paquetes_base:
+  - Mozilla.Firefox
+  - VideoLAN.VLC
+  - GIMP.GIMP
+
+paquetes_extra:
+  - LibreOffice.LibreOffice

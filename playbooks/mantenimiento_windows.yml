@@ -1,0 +1,7 @@
+---
+- name: Mantenimiento general windows
+  hosts: win_aula3
+  gather_facts: false
+
+  roles:
+    - windows_mantenimiento

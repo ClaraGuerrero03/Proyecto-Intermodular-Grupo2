@@ -1,0 +1,36 @@
+---
+- name: Asegurar firewall de Windows activo en todos los perfiles
+  ansible.windows.win_shell: |
+    Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled True
+    Write-Output "OK"
+  register: firewall_enabled
+  changed_when: false
+
+- name: Permitir SSH en firewall
+  ansible.windows.win_shell: |
+    if (-not (Get-NetFirewallRule -Name sshd -ErrorAction SilentlyContinue)) {
+      New-NetFirewallRule -Name sshd `
+        -DisplayName "OpenSSH Server (sshd)" `
+        -Enabled True `
+        -Direction Inbound `
+        -Protocol TCP `
+        -Action Allow `
+        -LocalPort 22
+      Write-Output "CREADA"
+    } else {
+      Write-Output "EXISTE"
+    }
+  register: regla_ssh
+  changed_when: "'CREADA' in regla_ssh.stdout"
+
+- name: Permitir ping ICMPv4
+  ansible.windows.win_shell: |
+    Enable-NetFirewallRule -DisplayGroup "File and Printer Sharing"
+    Write-Output "OK"
+  changed_when: false
+
+- name: Deshabilitar cuenta invitado
+  ansible.windows.win_user:
+    name: Invitado
+    account_disabled: true
+  ignore_errors: true

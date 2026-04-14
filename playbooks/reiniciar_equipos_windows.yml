@@ -1,0 +1,10 @@
+---
+- name: Reiniciar equipos windows
+  hosts: win_aula3
+  gather_facts: false
+  serial: 5
+
+  tasks:
+    - name: Reiniciar sistema Windows
+      ansible.windows.win_reboot:
+        reboot_timeout: 600

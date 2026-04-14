@@ -1,0 +1,14 @@
+---
+- name: Configuracion basica del aula 3 windows
+  hosts: win_aula3
+  gather_facts: false
+
+  vars_files:
+    - ../vars/usuarios_aula3_win.yml
+    - ../vars/paquetes_windows.yml
+
+  roles:
+    - { role: windows_paquetes, tags: ["paquetes"] }
+    - { role: windows_usuarios, tags: ["usuarios"] }
+    - { role: windows_seguridad, tags: ["seguridad"] }
+    - { role: windows_configuracion, tags: ["configuracion"] }

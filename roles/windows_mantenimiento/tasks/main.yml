@@ -1,0 +1,37 @@
+---
+- name: Ver espacio en disco C
+  ansible.windows.win_shell: |
+    Get-PSDrive C | Select-Object Used,Free,@{N='TotalGB';E={[math]::Round(($_.Used + $_.Free)/1GB,2)}}
+  register: disco
+  changed_when: false
+
+- name: Ver tiempo encendido
+  ansible.windows.win_shell: |
+    (Get-Date) - (gcim Win32_OperatingSystem).LastBootUpTime
+  register: uptime_equipo
+  changed_when: false
+
+- name: Ver memoria
+  ansible.windows.win_shell: |
+    $os = Get-CimInstance Win32_OperatingSystem
+    [PSCustomObject]@{
+      TotalGB = [math]::Round($os.TotalVisibleMemorySize / 1MB, 2)
+      FreeGB  = [math]::Round($os.FreePhysicalMemory / 1MB, 2)
+      UsedGB  = [math]::Round(($os.TotalVisibleMemorySize - $os.FreePhysicalMemory) / 1MB, 2)
+    }
+  register: memoria
+  changed_when: false
+
+- name: Mostrar estado resumido
+  debug:
+    msg:
+      - "{{ inventory_hostname }} - Disco: {{ disco.stdout }}"
+      - "{{ inventory_hostname }} - Uptime: {{ uptime_equipo.stdout }}"
+      - "{{ inventory_hostname }} - Memoria: {{ memoria.stdout }}"
+
+- name: Limpiar carpeta temporal del sistema
+  ansible.windows.win_shell: |
+    Remove-Item -Path "$env:TEMP\*" -Recurse -Force -ErrorAction SilentlyContinue
+    Write-Output "LIMPIEZA_OK"
+  register: limpieza_temp
+  changed_when: "'LIMPIEZA_OK' in limpieza_temp.stdout"

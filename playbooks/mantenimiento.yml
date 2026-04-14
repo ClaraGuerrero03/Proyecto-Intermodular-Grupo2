@@ -1,6 +1,6 @@
 ---
 - name: Mantenimiento general
-  hosts: all
+  hosts: aula1:aula2
   become: true
   roles:
     - mantenimiento

@@ -1,0 +1,12 @@
+---
+- name: Eliminar usuarios locales Windows
+  ansible.windows.win_user:
+    name: "{{ item }}"
+    state: absent
+  loop: "{{ usuarios_eliminar }}"
+
+- name: Eliminar carpetas de usuarios borrados
+  ansible.windows.win_file:
+    path: "C:\\Usuarios-Aula\\{{ item }}"
+    state: absent
+  loop: "{{ usuarios_eliminar }}"

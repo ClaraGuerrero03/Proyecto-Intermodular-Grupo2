@@ -1,0 +1,34 @@
+---
+- name: Crear grupo local de alumnos
+  ansible.windows.win_group:
+    name: "{{ grupo_alumnos }}"
+    description: "Grupo de alumnos del aula"
+    state: present
+
+- name: Crear usuarios locales Windows
+  ansible.windows.win_user:
+    name: "{{ item.nombre }}"
+    password: "{{ item.password }}"
+    state: present
+    password_never_expires: false
+    user_cannot_change_password: false
+    groups:
+      - "{{ grupo_alumnos }}"
+    groups_action: add
+    account_disabled: false
+  loop: "{{ usuarios }}"
+
+- name: Crear carpeta personal base
+  ansible.windows.win_file:
+    path: "C:\\Usuarios-Aula\\{{ item.nombre }}"
+    state: directory
+  loop: "{{ usuarios }}"
+
+- name: Crear archivo de bienvenida para cada usuario
+  ansible.windows.win_copy:
+    dest: "C:\\Usuarios-Aula\\{{ item.nombre }}\\bienvenida.txt"
+    content: |
+      Usuario preparado por Ansible.
+      Equipo: {{ inventory_hostname }}
+      Usuario: {{ item.nombre }}
+  loop: "{{ usuarios }}"

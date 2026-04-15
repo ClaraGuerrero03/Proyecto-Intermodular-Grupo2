@@ -1,11 +1,38 @@
 ---
-- name: Instalar paquetes base del aula en Windows
-  ansible.windows.win_shell: |
-    winget install --id {{ item }} -e --source winget --accept-source-agreements --accept-package-agreements --disable-interactivity
-  loop: "{{ paquetes_base }}"
+- name: Crear carpeta temporal de instaladores
+  ansible.windows.win_file:
+    path: C:\Temp\Instaladores
+    state: directory
 
-- name: Instalar paquetes extra en Windows
-  ansible.windows.win_shell: |
-    winget install --id {{ item }} -e --source winget --accept-source-agreements --accept-package-agreements --disable-interactivity
-  loop: "{{ paquetes_extra }}"
-  when: paquetes_extra is defined
+- name: Descargar Firefox
+  ansible.windows.win_get_url:
+    url: "{{ firefox_url }}"
+    dest: C:\Temp\Instaladores\firefox.exe
+
+- name: Instalar Firefox
+  ansible.windows.win_package:
+    path: C:\Temp\Instaladores\firefox.exe
+    arguments: "/S"
+    state: present
+
+- name: Descargar VLC
+  ansible.windows.win_get_url:
+    url: "{{ vlc_url }}"
+    dest: C:\Temp\Instaladores\vlc.exe
+
+- name: Instalar VLC
+  ansible.windows.win_package:
+    path: C:\Temp\Instaladores\vlc.exe
+    arguments: "/S"
+    state: present
+
+- name: Descargar LibreOffice
+  ansible.windows.win_get_url:
+    url: "{{ libreoffice_url }}"
+    dest: C:\Temp\Instaladores\libreoffice.msi
+
+- name: Instalar LibreOffice
+  ansible.windows.win_package:
+    path: C:\Temp\Instaladores\libreoffice.msi
+    state: present
+

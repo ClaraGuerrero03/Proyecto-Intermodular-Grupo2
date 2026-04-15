@@ -265,15 +265,3 @@ group_vars/
 según el grupo destino.
 
 ---
-
-# Ventajas dentro del proyecto
-
-El uso de `group_vars` permite:
-
-* separar configuración de lógica de automatización
-* adaptar rápidamente la configuración por aula
-* reutilizar roles en distintos entornos
-* mantener estructura profesional del inventario
-* facilitar ampliaciones futuras del sistema
-
-Esta organización sigue las buenas prácticas recomendadas en automatización de infraestructuras con Ansible.

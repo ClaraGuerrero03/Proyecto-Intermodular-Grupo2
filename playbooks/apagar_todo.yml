@@ -1,0 +1,21 @@
+---
+- name: Apagar equipos Linux
+  hosts: linux
+  become: true
+  gather_facts: false
+  serial: 5
+
+  tasks:
+    - name: Apagar Linux
+      ansible.builtin.shell: sleep 2 && shutdown -h now
+      async: 1
+      poll: 0
+
+- name: Apagar equipos Windows
+  hosts: win_aula3
+  gather_facts: false
+  serial: 1
+
+  tasks:
+    - name: Apagar Windows
+      ansible.windows.win_shell: shutdown /s /t 5 /f

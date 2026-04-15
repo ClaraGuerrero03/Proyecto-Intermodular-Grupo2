@@ -2,7 +2,7 @@
 - name: Configuracion basica del aula 3 windows
   hosts: win_aula3
   gather_facts: false
-
+  serial: 1
   vars_files:
     - ../vars/usuarios_aula3_win.yml
     - ../vars/paquetes_windows.yml

@@ -1,0 +1,12 @@
+---
+- name: Apagar equipos Linux
+  hosts: linux
+  become: true
+  gather_facts: false
+  serial: 5
+
+  tasks:
+    - name: Apagar equipos Linux
+      ansible.builtin.shell: sleep 2 && shutdown -h now
+      async: 1
+      poll: 0

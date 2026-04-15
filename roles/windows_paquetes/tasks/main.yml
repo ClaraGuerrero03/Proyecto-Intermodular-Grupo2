@@ -4,35 +4,22 @@
     path: C:\Temp\Instaladores
     state: directory
 
-- name: Descargar Firefox
-  ansible.windows.win_get_url:
-    url: "{{ firefox_url }}"
-    dest: C:\Temp\Instaladores\firefox.exe
+- name: Instalar Chocolatey
+  chocolatey.chocolatey.win_chocolatey:
+    name: chocolatey
+    state: present
 
 - name: Instalar Firefox
-  ansible.windows.win_package:
-    path: C:\Temp\Instaladores\firefox.exe
-    arguments: "/S"
+  chocolatey.chocolatey.win_chocolatey:
+    name: firefox
     state: present
-
-- name: Descargar VLC
-  ansible.windows.win_get_url:
-    url: "{{ vlc_url }}"
-    dest: C:\Temp\Instaladores\vlc.exe
 
 - name: Instalar VLC
-  ansible.windows.win_package:
-    path: C:\Temp\Instaladores\vlc.exe
-    arguments: "/S"
+  chocolatey.chocolatey.win_chocolatey:
+    name: vlc
     state: present
-
-- name: Descargar LibreOffice
-  ansible.windows.win_get_url:
-    url: "{{ libreoffice_url }}"
-    dest: C:\Temp\Instaladores\libreoffice.msi
 
 - name: Instalar LibreOffice
-  ansible.windows.win_package:
-    path: C:\Temp\Instaladores\libreoffice.msi
+  chocolatey.chocolatey.win_chocolatey:
+    name: libreoffice-fresh
     state: present
-

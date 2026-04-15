@@ -1,0 +1,9 @@
+---
+- name: Apagar equipos Windows
+  hosts: win_aula3
+  gather_facts: false
+  serial: 1
+
+  tasks:
+    - name: Apagar equipos Windows
+      ansible.windows.win_shell: shutdown /s /t 5 /f
